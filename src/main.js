@@ -30,9 +30,7 @@ class Creature {
 
 
 
-    console.log("drawing creature");
     fill('#0000FF');
-    //rotate(this.vel.heading() + radians(90));
     translate(this.position.x, this.position.y);
     triangle(
       0, 0,
