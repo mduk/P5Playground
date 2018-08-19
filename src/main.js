@@ -49,6 +49,12 @@ class Ellipse {
   }
 }
 
+function guides() {
+  stroke(50);
+  line(-(width/2), 0, (width/2), 0);
+  line(0, -(height/2), 0, (height/2));
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Main
 ////////////////////////////////////////////////////////////////////////////////
@@ -57,16 +63,6 @@ let objects = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  background('#000000');
-
-  translate(width/2, height/2);
-  fill('#FFFF00');
-  ellipse(0,0,10,10);
-
-  stroke(50);
-  line(-(width/2), 0, (width/2), 0);
-  line(0, -(height/2), 0, (height/2));
-
   objects.push(new Creature({}));
   objects.push(new Ellipse({}));
 }
@@ -88,6 +84,10 @@ function mouseClicked() {
 
 function draw() {
   translate(width/2, height/2);
+  background(0);
+
+  guides();
+
   objects.map((object) => {
     push();
     object.draw();
