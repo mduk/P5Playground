@@ -1,5 +1,13 @@
+function randomColour() {
+  return color(
+    random(255),
+    random(255),
+    random(255)
+  );
+}
+
 class Ellipse {
-  constructor({position}) {
+  constructor({position, size, colour}) {
     if (position) {
       this.position = position;
     } else {
@@ -8,12 +16,14 @@ class Ellipse {
         random(-(height/2), (height/2))
       );
     }
+
+    this.size = size || random(10, 50);
+    this.colour = colour || randomColour();
   }
 
   draw() {
-    translate(this.position);
-    fill('#FF0000');
-    ellipse(0, 0, 10, 10);
+    fill(this.colour);
+    ellipse(this.position.x, this.position.y, this.size);
   }
 }
 
