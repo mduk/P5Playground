@@ -92,7 +92,8 @@ function mouseClicked() {
 
   console.log("click!", mouseV);
 
-  objects.push(new Ellipse({position: mouseV}));
+  //objects.push(new Ellipse({position: mouseV}));
+  objects.push(new Creature({position: mouseV}));
 }
 
 function draw() {
