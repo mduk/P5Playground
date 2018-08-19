@@ -13,9 +13,18 @@ class Creature {
       random(-(width/2), (width/2)),
       random(-(height/2), (height/2))
     );
+
+    this.velocity = createVector(
+      random(-1, 1),
+      random(-1, 1)
+    );
   }
 
   draw() {
+    this.position.add(this.velocity);
+
+
+
     console.log("drawing creature");
     fill('#0000FF');
     //rotate(this.vel.heading() + radians(90));
