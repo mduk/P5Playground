@@ -6,6 +6,28 @@ function randomColour() {
   );
 }
 
+class Creature {
+  constructor() {
+    this.size = 15;
+    this.position = createVector(
+      random(-(width/2), (width/2)),
+      random(-(height/2), (height/2))
+    );
+  }
+
+  draw() {
+    console.log("drawing creature");
+    fill('#0000FF');
+    //rotate(this.vel.heading() + radians(90));
+    translate(this.position.x, this.position.y);
+    triangle(
+      0, 0,
+      (this.size / 2), this.size,
+      -(this.size / 2), this.size
+    );
+  }
+}
+
 class Ellipse {
   constructor({position, size, colour}) {
     if (position) {
@@ -45,6 +67,7 @@ function setup() {
   line(-(width/2), 0, (width/2), 0);
   line(0, -(height/2), 0, (height/2));
 
+  objects.push(new Creature({}));
   objects.push(new Ellipse({}));
 }
 
