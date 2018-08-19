@@ -15,12 +15,17 @@ class Creature {
     );
 
     this.velocity = createVector(
-      random(-1, 1),
-      random(-1, 1)
+      0,0
+    );
+
+    this.acceleration = createVector(
+      random(-0.1, 0.1),
+      random(-0.1, 0.1)
     );
   }
 
   draw() {
+    this.velocity.add(this.acceleration);
     this.position.add(this.velocity);
 
 
