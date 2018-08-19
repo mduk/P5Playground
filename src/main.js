@@ -1,3 +1,5 @@
+let objects = [];
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background('#000000');
@@ -17,5 +19,10 @@ function windowResized() {
 
 function draw() {
   translate(width/2, height/2);
+  objects.map((object) => {
+    push();
+    object.draw();
+    pop();
+  });
 
 }
