@@ -32,10 +32,11 @@ class Creature {
 
     fill('#0000FF');
     translate(this.position.x, this.position.y);
+    rotate(this.velocity.heading() + radians(90));
     triangle(
       0, 0,
-      (this.size / 2), this.size,
-      -(this.size / 2), this.size
+      (this.size / 3), this.size,
+      -(this.size / 3), this.size
     );
   }
 }
