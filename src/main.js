@@ -7,9 +7,9 @@ function randomColour() {
 }
 
 class Creature {
-  constructor() {
-    this.size = 15;
-    this.position = createVector(
+  constructor({position, size}) {
+    this.size = size || random(10, 50);
+    this.position = position || createVector(
       random(-(width/2), (width/2)),
       random(-(height/2), (height/2))
     );
