@@ -1,3 +1,10 @@
+class Ellipse {
+  draw() {
+    fill('#FF0000');
+    ellipse(0, 0, 10, 10);
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Main
 ////////////////////////////////////////////////////////////////////////////////
@@ -15,6 +22,8 @@ function setup() {
   stroke('#FFFFFF');
   line(-(width/2), 0, (width/2), 0);
   line(0, -(height/2), 0, (height/2));
+
+  objects.push(new Ellipse);
 }
 
 function windowResized() {
