@@ -93,8 +93,11 @@ function mouseClicked() {
 
   console.log("click!", mouseV);
 
-  //objects.push(new Ellipse({position: mouseV}));
-  objects.push(new Creature({position: mouseV}));
+  if (random(-1,1) > 0) {
+    objects.push(new Creature({position: mouseV}));
+  } else {
+    objects.push(new Ellipse({position: mouseV}));
+  }
 }
 
 function draw() {
