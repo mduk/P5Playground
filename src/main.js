@@ -31,6 +31,7 @@ class Creature {
 
 
     fill('#0000FF');
+    line(0, 0, this.position.x, this.position.y);
     translate(this.position.x, this.position.y);
     rotate(this.velocity.heading() + radians(90));
     triangle(
