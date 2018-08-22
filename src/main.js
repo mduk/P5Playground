@@ -7,7 +7,6 @@ function randomColour() {
 }
 
 class Drawable {
-
   isOffCanvas() {
     const isWithin =
            (this.position.x < minx)
