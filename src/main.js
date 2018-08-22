@@ -18,7 +18,7 @@ class Drawable {
   }
 }
 
-class Creature extends Drawable {
+class Agent extends Drawable {
   constructor({position, size}) {
     super();
     this.size = size || random(10, 50);
@@ -96,7 +96,7 @@ let maxy;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  objects.push(new Creature({}));
+  objects.push(new Agent({}));
   objects.push(new Ellipse({}));
 
   minx = -(width /2);
@@ -119,7 +119,7 @@ function mouseClicked() {
   console.log("click!", mouseV);
 
   if (random(-1,1) > 0) {
-    objects.push(new Creature({position: mouseV}));
+    objects.push(new Agent({position: mouseV}));
   } else {
     objects.push(new Ellipse({position: mouseV}));
   }
