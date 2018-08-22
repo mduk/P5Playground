@@ -23,10 +23,13 @@ class Drawable {
     console.log('is within', isWithin);
     return isWithin;
   }
+
+  update() {}
+  draw() {}
 }
 
 class Agent extends Drawable {
-  constructor({position, size}) {
+  constructor({position, velocity, size}) {
     super();
     this.size = size || random(10, 50);
     this.position = position || createVector(
