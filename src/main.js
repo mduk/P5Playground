@@ -121,11 +121,13 @@ class Line {
 // Main
 ////////////////////////////////////////////////////////////////////////////////
 
-let objects = [];
 let minx;
 let maxx;
 let miny;
 let maxy;
+
+let objects = [];
+let launchLine = false;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -134,8 +136,10 @@ function setup() {
   miny = -(height/2);
   maxy =  (height/2);
 
-  objects.push(new Agent({}));
-  objects.push(new Ellipse({}));
+  let nPlanets = 20;
+  while (nPlanets--) {
+    objects.push(new Ellipse({}));
+  }
 }
 
 function windowResized() {
@@ -145,14 +149,6 @@ function windowResized() {
   miny = -(height/2);
   maxy =  (height/2);
 }
-
-function mouseClicked() {
-  let mouseV = mouseVector();
-  console.log("click!", mouseV);
-  objects.push(new Ellipse({position: mouseV}));
-}
-
-let launchLine = false;
 
 function mousePressed() {
   launchLine = new Line(mouseVector());
