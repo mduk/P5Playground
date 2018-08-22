@@ -145,12 +145,10 @@ function windowResized() {
 }
 
 function mouseClicked() {
-  let mouseV = createVector(
-    mouseX - (width / 2),
-    mouseY - (height / 2)
-  );
-
+  let mouseV = mouseVector();
   console.log("click!", mouseV);
+  objects.push(new Ellipse({position: mouseV}));
+}
 
   if (random(-1,1) > 0) {
     objects.push(new Agent({position: mouseV}));
