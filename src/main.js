@@ -37,32 +37,34 @@ class Agent extends Drawable {
       random(-(height/2), (height/2))
     );
 
-    this.velocity = createVector(
+    this.velocity = velocity || createVector(
       0,0
     );
 
     this.acceleration = createVector(
-      random(-0.1, 0.1),
-      random(-0.1, 0.1)
+      random(0, 0.1),
+      random(0, 0.1)
     );
   }
 
-  draw() {
+  update() {
     this.velocity.add(this.acceleration);
     this.position.add(this.velocity);
+  }
 
-
-
+  draw() {
+    noStroke();
     fill('#0000FF');
     line(0, 0, this.position.x, this.position.y);
     translate(this.position.x, this.position.y);
     rotate(this.velocity.heading() + radians(90));
     triangle(
-      0, 0,
-      (this.size / 3), this.size,
+       0,               0,
+       (this.size / 3), this.size,
       -(this.size / 3), this.size
     );
   }
+
 }
 
 class Ellipse extends Drawable {
@@ -150,11 +152,22 @@ function mouseClicked() {
   objects.push(new Ellipse({position: mouseV}));
 }
 
-  if (random(-1,1) > 0) {
-    objects.push(new Agent({position: mouseV}));
-  } else {
-    objects.push(new Ellipse({position: mouseV}));
-  }
+let launchLine = false;
+
+function mousePressed() {
+  launchLine = new Line(mouseVector());
+}
+
+function mouseDragged() {
+  launchLine.end = mouseVector();
+}
+
+function mouseReleased() {
+  objects.push(new Agent({
+    position: mouseVector(),
+    velocity: launchLine.end.sub(launchLine.begin).mult(0.1)
+  }));
+  launchLine = false;
 }
 
 function draw() {
@@ -163,6 +176,10 @@ function draw() {
 
   guides();
 
+  if (launchLine) {
+    launchLine.draw();
+  }
+
   let i = objects.length;
   while (i--) {
     let object = objects[i];
@@ -170,6 +187,8 @@ function draw() {
       objects.splice(i, 1);
       continue;
     }
+
+    object.update();
 
     push();
     object.draw();
