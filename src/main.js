@@ -6,6 +6,13 @@ function randomColour() {
   );
 }
 
+function mouseVector() {
+  return createVector(
+    mouseX - (width / 2),
+    mouseY - (height / 2)
+  );
+}
+
 class Drawable {
   isOffCanvas() {
     const isWithin =
