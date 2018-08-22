@@ -82,6 +82,7 @@ class Ellipse extends Drawable {
   }
 
   draw() {
+    noStroke();
     fill(this.colour);
     ellipse(this.position.x, this.position.y, this.size);
   }
