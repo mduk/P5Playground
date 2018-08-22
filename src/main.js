@@ -127,18 +127,21 @@ let maxy;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  objects.push(new Agent({}));
-  objects.push(new Ellipse({}));
-
   minx = -(width /2);
   maxm =  (width /2);
   miny = -(height/2);
   maxy =  (height/2);
 
+  objects.push(new Agent({}));
+  objects.push(new Ellipse({}));
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+  minx = -(width /2);
+  maxm =  (width /2);
+  miny = -(height/2);
+  maxy =  (height/2);
 }
 
 function mouseClicked() {
