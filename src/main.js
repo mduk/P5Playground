@@ -6,8 +6,22 @@ function randomColour() {
   );
 }
 
-class Creature {
+class Drawable {
+
+  isOffCanvas() {
+    const isWithin =
+           (this.position.x < minx)
+        || (this.position.x > maxx)
+        || (this.position.y < miny)
+        || (this.position.y > maxy);
+    console.log('is within', isWithin);
+    return isWithin;
+  }
+}
+
+class Creature extends Drawable {
   constructor({position, size}) {
+    super();
     this.size = size || random(10, 50);
     this.position = position || createVector(
       random(-(width/2), (width/2)),
@@ -42,8 +56,9 @@ class Creature {
   }
 }
 
-class Ellipse {
+class Ellipse extends Drawable {
   constructor({position, size, colour}) {
+    super();
     if (position) {
       this.position = position;
     } else {
@@ -74,11 +89,21 @@ function guides() {
 ////////////////////////////////////////////////////////////////////////////////
 
 let objects = [];
+let minx;
+let maxx;
+let miny;
+let maxy;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   objects.push(new Creature({}));
   objects.push(new Ellipse({}));
+
+  minx = -(width /2);
+  maxm =  (width /2);
+  miny = -(height/2);
+  maxy =  (height/2);
+
 }
 
 function windowResized() {
@@ -106,10 +131,16 @@ function draw() {
 
   guides();
 
-  objects.map((object) => {
+  let i = objects.length;
+  while (i--) {
+    let object = objects[i];
+    if (object.isOffCanvas()) {
+      objects.splice(i, 1);
+      continue;
+    }
+
     push();
     object.draw();
     pop();
-  });
-
+  }
 }
