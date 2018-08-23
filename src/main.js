@@ -8,6 +8,7 @@ let maxy;
 let planets = [];
 let rockets = [];
 let launchLine = false;
+let crosshair;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -15,6 +16,8 @@ function setup() {
   maxm =  (width /2);
   miny = -(height/2);
   maxy =  (height/2);
+
+  crosshair = new Crosshair();
 
   while (nPlanets--) {
     planets.push(new Ellipse({}));
@@ -31,6 +34,16 @@ function windowResized() {
 
 function mousePressed() {
   launchLine = new Line(mouseVector());
+
+  const clicked = planets
+    .filter((p) => p.containsPoint(mouseVector()));
+
+  if (clicked.length > 0) {
+    crosshair.target({
+      position: clicked[0].position,
+      size: clicked[0].radius
+    });
+  }
 }
 
 function mouseDragged() {
@@ -57,6 +70,7 @@ function draw() {
   }
 
   planets.draw();
+  crosshair.draw();
 
   let i = rockets.length;
   while (i--) {
