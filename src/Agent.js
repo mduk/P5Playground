@@ -22,13 +22,13 @@ class Agent extends Drawable {
 
   steerToward(target) {
     let desired = p5.Vector.sub(target, this.position);
-
     var speed = this.maxspeed;
 
     var distance = desired.mag();
-    if (distance < 100) {
+    if (false && distance < 100) {
       var speed = map(distance, 0, 100, 0, this.maxspeed);
     }
+
     desired.setMag(speed);
     let steer = p5.Vector.sub(desired, this.velocity);
     steer.limit(this.maxspeed);
