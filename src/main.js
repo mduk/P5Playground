@@ -13,6 +13,13 @@ function randomColour() {
   );
 }
 
+function randomPosition() {
+  return createVector(
+    random(-(width/2), (width/2)),
+    random(-(height/2), (height/2))
+  );
+}
+
 function mouseVector() {
   return createVector(
     mouseX - (width / 2),
