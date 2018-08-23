@@ -19,4 +19,8 @@ class Ellipse extends Drawable {
     fill(this.colour);
     ellipse(this.position.x, this.position.y, this.radius * 2);
   }
+
+  containsPoint(point) {
+    return (this.position.dist(point) < this.radius);
+  }
 }
