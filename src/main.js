@@ -29,13 +29,10 @@ function mouseVector() {
 
 class Drawable {
   isOffCanvas() {
-    const isWithin =
-           (this.position.x < minx)
+    return (this.position.x < minx)
         || (this.position.x > maxx)
         || (this.position.y < miny)
         || (this.position.y > maxy);
-    console.log('is within', isWithin);
-    return isWithin;
   }
 
   update() {}
