@@ -40,10 +40,11 @@ class Drawable {
 }
 
 class Agent extends Drawable {
-  constructor({position, velocity, acceleration, size}) {
+  constructor({size, colour, position, velocity, acceleration}) {
     super();
 
     this.size         = size         || random(10, 50);
+    this.colour       = colour       || randomColour();
     this.velocity     = velocity     || createVector(0,0);
     this.position     = position     || randomPosition();
     this.acceleration = acceleration || createVector(0,0);
@@ -63,7 +64,7 @@ class Agent extends Drawable {
 
   draw() {
     noStroke();
-    fill('#0000FF');
+    fill(this.colour);
     line(0, 0, this.position.x, this.position.y);
     translate(this.position.x, this.position.y);
     rotate(this.velocity.heading() + radians(90));
