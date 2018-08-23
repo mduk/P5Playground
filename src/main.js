@@ -135,7 +135,8 @@ let maxx;
 let miny;
 let maxy;
 
-let objects = [];
+let planets = [];
+let rockets = [];
 let launchLine = false;
 
 function setup() {
@@ -147,7 +148,7 @@ function setup() {
 
   let nPlanets = 20;
   while (nPlanets--) {
-    objects.push(new Ellipse({}));
+    planets.push(new Ellipse({}));
   }
 }
 
@@ -168,7 +169,7 @@ function mouseDragged() {
 }
 
 function mouseReleased() {
-  objects.push(new Agent({
+  rockets.push(new Agent({
     position: mouseVector(),
     velocity: launchLine.end.sub(launchLine.begin).mult(0.1)
   }));
@@ -185,18 +186,27 @@ function draw() {
     launchLine.draw();
   }
 
-  let i = objects.length;
+  planets.draw();
+
+  let i = rockets.length;
   while (i--) {
-    let object = objects[i];
-    if (object.isOffCanvas()) {
-      objects.splice(i, 1);
+    let rocket = rockets[i];
+
+    if (rocket.isOffCanvas()) {
+      rockets.splice(i, 1);
       continue;
     }
 
-    object.update();
+    let collisions = rocket.collidesWith(planets);
+    if (collisions.length > 0) {
+      rockets.splice(i, 1);
+      continue;
+    }
+
+    rocket.update();
 
     push();
-    object.draw();
+    rocket.draw();
     pop();
   }
 }
