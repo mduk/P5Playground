@@ -77,7 +77,7 @@ class Agent extends Drawable {
 }
 
 class Ellipse extends Drawable {
-  constructor({position, size, colour}) {
+  constructor({position, radius, colour}) {
     super();
     if (position) {
       this.position = position;
@@ -88,14 +88,14 @@ class Ellipse extends Drawable {
       );
     }
 
-    this.size = size || random(10, 50);
+    this.radius = radius || random(15, 25);
     this.colour = colour || randomColour();
   }
 
   draw() {
     noStroke();
     fill(this.colour);
-    ellipse(this.position.x, this.position.y, this.size);
+    ellipse(this.position.x, this.position.y, this.radius * 2);
   }
 }
 
