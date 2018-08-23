@@ -40,22 +40,13 @@ class Drawable {
 }
 
 class Agent extends Drawable {
-  constructor({position, velocity, size}) {
+  constructor({position, velocity, acceleration, size}) {
     super();
-    this.size = size || random(10, 50);
-    this.position = position || createVector(
-      random(-(width/2), (width/2)),
-      random(-(height/2), (height/2))
-    );
 
-    this.velocity = velocity || createVector(
-      0,0
-    );
-
-    this.acceleration = createVector(
-      random(0, 0.1),
-      random(0, 0.1)
-    );
+    this.size         = size         || random(10, 50);
+    this.velocity     = velocity     || createVector(0,0);
+    this.position     = position     || randomPosition();
+    this.acceleration = acceleration || createVector(0,0);
   }
 
   update() {
