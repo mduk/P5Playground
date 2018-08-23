@@ -1,5 +1,5 @@
 class Agent extends Drawable {
-  constructor({size, colour, position, velocity, acceleration, target}) {
+  constructor({size, colour, position, velocity, acceleration, target, maxspeed}) {
     super();
 
     this.size         = size         || random(10, 50);
@@ -7,8 +7,8 @@ class Agent extends Drawable {
     this.velocity     = velocity     || createVector(0,0);
     this.position     = position     || randomPosition();
     this.acceleration = acceleration || createVector(0,0);
-    this.target       = target;
-    this.maxspeed = 5;
+    this.target       = target       || false;
+    this.maxspeed     = maxspeed     || 5;
     this.update();
   }
 
@@ -17,7 +17,9 @@ class Agent extends Drawable {
     this.velocity.add(this.acceleration);
     this.acceleration.mult(0);
 
-    this.steerToward(this.target);
+    if (this.target) {
+      this.steerToward(this.target);
+    }
   }
 
   steerToward(target) {
