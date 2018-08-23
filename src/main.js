@@ -171,6 +171,7 @@ function mouseDragged() {
 
 function mouseReleased() {
   rockets.push(new Agent({
+    colour: launchLine.colour,
     position: mouseVector(),
     velocity: launchLine.end.sub(launchLine.begin).mult(-0.1)
   }));
