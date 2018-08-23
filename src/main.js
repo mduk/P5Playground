@@ -52,9 +52,10 @@ function mouseDragged() {
 
 function mouseReleased() {
   rockets.push(new Agent({
+    target: crosshair.position,
     colour: launchLine.colour,
     position: mouseVector(),
-    velocity: launchLine.end.sub(launchLine.begin).mult(-0.1)
+    //velocity: launchLine.end.sub(launchLine.begin).mult(-0.1)
   }));
   launchLine = false;
 }
