@@ -54,6 +54,13 @@ class Agent extends Drawable {
     this.position.add(this.velocity);
   }
 
+  collidesWith(objects) {
+    let rocket = this;
+    return objects.filter((o) => {
+      return ((rocket.position.dist(o.position) - o.radius) <= 0) ;
+    });
+  }
+
   draw() {
     noStroke();
     fill('#0000FF');
