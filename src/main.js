@@ -136,6 +136,7 @@ let maxx;
 let miny;
 let maxy;
 
+let nPlanets = 2;
 let planets = [];
 let rockets = [];
 let launchLine = false;
@@ -147,7 +148,6 @@ function setup() {
   miny = -(height/2);
   maxy =  (height/2);
 
-  let nPlanets = 20;
   while (nPlanets--) {
     planets.push(new Ellipse({}));
   }
