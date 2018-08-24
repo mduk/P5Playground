@@ -21,15 +21,24 @@ class Rocket extends Drawable {
   }
 
   update() {
-    if (this.target) {
-      this.steerToward(this.target);
-    }
+    this.steerToward(this.selectTarget(planets));
 
     this.velocity.add(this.acceleration);
     this.position.add(this.velocity);
     this.acceleration.mult(0);
 
     this.flightPath.push(this.position.copy());
+  }
+
+  selectTarget(targets) {
+    let nearest = targets[0].position;
+    let distance = targets[0].position.dist(this.position);
+    targets.forEach((t) => {
+      if (this.position.dist(t.position) < distance) {
+        nearest = t.position;
+      }
+    });
+    return nearest;
   }
 
   steerToward(target) {
