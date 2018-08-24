@@ -1,4 +1,4 @@
-class Agent extends Drawable {
+class Rocket extends Drawable {
   constructor({initialPosition, size, colour, position, velocity,
                acceleration, target, maxspeed, maxforce}) {
     super();

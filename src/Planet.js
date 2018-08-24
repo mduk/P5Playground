@@ -1,4 +1,4 @@
-class Ellipse extends Drawable {
+class Planet extends Drawable {
   constructor({position, radius, colour}) {
     super();
     if (position) {
