@@ -10,6 +10,14 @@ let rockets = [];
 let launchLine = false;
 let crosshair;
 
+function spawnRocket() {
+  rockets.push(new Agent({
+    position: randomPosition(),
+    target: crosshair.position
+  }));
+  setTimeout(spawnRocket, 1000)
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   minx = -(width /2);
@@ -22,6 +30,9 @@ function setup() {
   while (nPlanets--) {
     planets.push(new Ellipse({}));
   }
+
+  spawnRocket();
+
 }
 
 function windowResized() {
