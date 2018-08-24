@@ -1,5 +1,6 @@
 class Agent extends Drawable {
-  constructor({initialPosition, size, colour, position, velocity, acceleration, target, maxspeed}) {
+  constructor({initialPosition, size, colour, position, velocity,
+               acceleration, target, maxspeed, maxforce}) {
     super();
 
     this.size            = size            || random(10, 50);
@@ -10,6 +11,7 @@ class Agent extends Drawable {
 
     this.target          = target          || false;
     this.maxspeed        = maxspeed        || 5;
+    this.maxforce        = maxforce        || 0.05;
 
     this.initialPosition = this.position.copy();
 
@@ -32,16 +34,11 @@ class Agent extends Drawable {
 
   steerToward(target) {
     let desired = p5.Vector.sub(target, this.position);
-    var speed = this.maxspeed;
+    desired.setMag(this.maxspeed);
 
-    var distance = desired.mag();
-    if (false && distance < 100) {
-      var speed = map(distance, 0, 100, 0, this.maxspeed);
-    }
-
-    desired.setMag(speed);
     let steer = p5.Vector.sub(desired, this.velocity);
-    steer.limit(this.maxspeed);
+    steer.limit(this.maxforce);
+
     this.applyForce(steer);
   }
 
