@@ -12,7 +12,7 @@ let crosshair;
 
 function spawnRocket() {
   if (rockets.length < 30 ){
-    rockets.push(new Agent({
+    rockets.push(new Rocket({
       position: randomPosition(),
       target: crosshair.position
     }));
@@ -68,7 +68,7 @@ function mouseDragged() {
 }
 
 function mouseReleased() {
-  rockets.push(new Agent({
+  rockets.push(new Rocket({
     target: crosshair.position,
     colour: launchLine.colour,
     position: mouseVector(),
