@@ -30,7 +30,7 @@ function setup() {
   crosshair = new Crosshair({});
 
   while (nPlanets--) {
-    planets.push(new Ellipse({}));
+    planets.push(new Planet({}));
   }
 
   spawnRocket();
