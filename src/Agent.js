@@ -24,13 +24,13 @@ class Agent extends Drawable {
   }
 
   update() {
-    this.position.add(this.velocity);
-    this.velocity.add(this.acceleration);
-    this.acceleration.mult(0);
-
     if (this.target) {
       this.steerToward(this.target);
     }
+
+    this.position.add(this.velocity);
+    this.velocity.add(this.acceleration);
+    this.acceleration.mult(0);
 
     this.flightPath.push(this.position.copy());
   }
