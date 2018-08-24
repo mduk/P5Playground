@@ -17,7 +17,7 @@ function setup() {
   miny = -(height/2);
   maxy =  (height/2);
 
-  crosshair = new Crosshair();
+  crosshair = new Crosshair({});
 
   while (nPlanets--) {
     planets.push(new Ellipse({}));
@@ -39,10 +39,14 @@ function mousePressed() {
     .filter((p) => p.containsPoint(mouseVector()));
 
   if (clicked.length > 0) {
+    const position = clicked[0].position;
+
     crosshair.target({
-      position: clicked[0].position,
+      position: position,
       size: clicked[0].radius
     });
+
+    rockets.forEach((r) => r.target = position);
   }
 }
 

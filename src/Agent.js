@@ -1,14 +1,25 @@
 class Agent extends Drawable {
-  constructor({size, colour, position, velocity, acceleration, target, maxspeed}) {
+  constructor({initialPosition, size, colour, position, velocity, acceleration, target, maxspeed}) {
     super();
 
-    this.size         = size         || random(10, 50);
-    this.colour       = colour       || randomColour();
-    this.velocity     = velocity     || createVector(0,0);
-    this.position     = position     || randomPosition();
-    this.acceleration = acceleration || createVector(0,0);
-    this.target       = target       || false;
-    this.maxspeed     = maxspeed     || 5;
+    this.size            = size            || random(10, 50);
+    this.colour          = colour          || randomColour();
+    this.velocity        = velocity        || createVector(0,0);
+    this.position        = position        || randomPosition();
+    this.acceleration    = acceleration    || createVector(0,0);
+
+    this.target          = target          || false;
+    this.maxspeed        = maxspeed        || 5;
+
+    this.initialPosition = this.position.copy();
+
+    this.crosshair = new Crosshair({
+      position: this.initialPosition,
+      colour: this.colour
+    });
+
+    this.flightPath = [];
+
     this.update();
   }
 
@@ -20,6 +31,8 @@ class Agent extends Drawable {
     if (this.target) {
       this.steerToward(this.target);
     }
+
+    this.flightPath.push(this.position.copy());
   }
 
   steerToward(target) {
@@ -49,9 +62,26 @@ class Agent extends Drawable {
   }
 
   draw() {
+    stroke(50);
+    strokeWeight(1);
+
+    //line(0, 0, this.position.x, this.position.y);
+
+    this.crosshair.draw();
+
+    stroke(50);
+    strokeWeight(1);
+    let pp = this.initialPosition;
+    this.flightPath.forEach((p) => {
+      line(
+        pp.x, pp.y,
+        p.x, p.y
+      );
+      pp = p;
+    });
+
     noStroke();
     fill(this.colour);
-    line(0, 0, this.position.x, this.position.y);
     translate(this.position.x, this.position.y);
     rotate(this.velocity.heading() + radians(90));
     triangle(
