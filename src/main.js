@@ -1,4 +1,4 @@
-let nPlanets = 2;
+let nPlanets = 20;
 
 let minx;
 let maxx;
@@ -8,6 +8,14 @@ let maxy;
 let planets = [];
 let rockets = [];
 let launchLine = false;
+
+p5.Color.prototype.asVector = function() {
+  return createVector(
+    this.levels[0],
+    this.levels[1],
+    this.levels[2]
+  );
+}
 
 function spawnRocket() {
   if (rockets.length < 30 ){
