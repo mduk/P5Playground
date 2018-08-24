@@ -8,13 +8,11 @@ let maxy;
 let planets = [];
 let rockets = [];
 let launchLine = false;
-let crosshair;
 
 function spawnRocket() {
   if (rockets.length < 30 ){
     rockets.push(new Rocket({
-      position: randomPosition(),
-      target: crosshair.position
+      position: randomPosition()
     }));
   }
   setTimeout(spawnRocket, 1000)
@@ -26,8 +24,6 @@ function setup() {
   maxm =  (width /2);
   miny = -(height/2);
   maxy =  (height/2);
-
-  crosshair = new Crosshair({});
 
   while (nPlanets--) {
     planets.push(new Planet({}));
@@ -54,11 +50,6 @@ function mousePressed() {
   if (clicked.length > 0) {
     const position = clicked[0].position;
 
-    crosshair.target({
-      position: position,
-      size: clicked[0].radius
-    });
-
     rockets.forEach((r) => r.target = position);
   }
 }
@@ -69,10 +60,8 @@ function mouseDragged() {
 
 function mouseReleased() {
   rockets.push(new Rocket({
-    target: crosshair.position,
     colour: launchLine.colour,
     position: mouseVector(),
-    //velocity: launchLine.end.sub(launchLine.begin).mult(-0.1)
   }));
   launchLine = false;
 }
@@ -88,7 +77,6 @@ function draw() {
   }
 
   planets.draw();
-  crosshair.draw();
 
   let i = rockets.length;
   while (i--) {
