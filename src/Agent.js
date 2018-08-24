@@ -13,11 +13,6 @@ class Agent extends Drawable {
 
     this.initialPosition = this.position.copy();
 
-    this.crosshair = new Crosshair({
-      position: this.initialPosition,
-      colour: this.colour
-    });
-
     this.flightPath = [];
 
     this.update();
@@ -64,10 +59,6 @@ class Agent extends Drawable {
   draw() {
     stroke(50);
     strokeWeight(1);
-
-    //line(0, 0, this.position.x, this.position.y);
-
-    this.crosshair.draw();
 
     stroke(50);
     strokeWeight(1);
