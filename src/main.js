@@ -11,10 +11,12 @@ let launchLine = false;
 let crosshair;
 
 function spawnRocket() {
-  rockets.push(new Agent({
-    position: randomPosition(),
-    target: crosshair.position
-  }));
+  if (rockets.length < 30 ){
+    rockets.push(new Agent({
+      position: randomPosition(),
+      target: crosshair.position
+    }));
+  }
   setTimeout(spawnRocket, 1000)
 }
 
