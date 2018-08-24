@@ -23,8 +23,8 @@ class Agent extends Drawable {
       this.steerToward(this.target);
     }
 
-    this.position.add(this.velocity);
     this.velocity.add(this.acceleration);
+    this.position.add(this.velocity);
     this.acceleration.mult(0);
 
     this.flightPath.push(this.position.copy());
