@@ -21,7 +21,10 @@ class Rocket extends Drawable {
   }
 
   update() {
-    this.steerToward(this.selectClosestColour(planets));
+    const selectedPlanet = this.selectClosestColour(planets);
+    if (selectedPlanet) {
+      this.steerToward(selectedPlanet);
+    }
 
     this.velocity.add(this.acceleration);
     this.position.add(this.velocity);
@@ -31,6 +34,10 @@ class Rocket extends Drawable {
   }
 
   selectClosestColour(targets) {
+    if (targets.length == 0) {
+      return;
+    }
+
     let nearest = targets[0].position;
     let distance = targets[0].colour.asVector().dist(this.colour.asVector());
     targets.forEach((t) => {
@@ -69,7 +76,7 @@ class Rocket extends Drawable {
   collidesWith(objects) {
     let rocket = this;
     return objects.filter((o) => {
-      return ((rocket.position.dist(o.position) - o.radius) <= 0) ;
+      return ((rocket.position.dist(o.position) - o.size) <= 0) ;
     });
   }
 

@@ -6,6 +6,7 @@ class Drawable {
         || (this.position.y > maxy);
   }
 
+  collideWith() {}
   update() {}
   draw() {}
 }

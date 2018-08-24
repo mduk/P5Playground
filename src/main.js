@@ -1,4 +1,5 @@
-let nPlanets = 20;
+let nPlanets = 40;
+let maxRockets = 10;
 
 let minx;
 let maxx;
@@ -18,12 +19,22 @@ p5.Color.prototype.asVector = function() {
 }
 
 function spawnRocket() {
-  if (rockets.length < 30 ){
+  if (rockets.length < maxRockets) {
     rockets.push(new Rocket({
       position: randomPosition()
     }));
   }
-  setTimeout(spawnRocket, 1000)
+
+  if (planets.length > 0) {
+    setTimeout(spawnRocket, 1000)
+  }
+  else {
+    spawnRockets();
+    let iPlanets = nPlanets;
+    while (iPlanets--) {
+      planets.push(new Planet({}));
+    }
+  }
 }
 
 function setup() {
@@ -33,12 +44,12 @@ function setup() {
   miny = -(height/2);
   maxy =  (height/2);
 
-  while (nPlanets--) {
+  let iPlanets = nPlanets;
+  while (iPlanets--) {
     planets.push(new Planet({}));
   }
 
   spawnRocket();
-
 }
 
 function windowResized() {
@@ -84,6 +95,7 @@ function draw() {
     launchLine.draw();
   }
 
+  planets = planets.filter((p) => p.size > 5);
   planets.draw();
 
   let i = rockets.length;
@@ -97,7 +109,8 @@ function draw() {
 
     let collisions = rocket.collidesWith(planets);
     if (collisions.length > 0) {
-      rockets.splice(i, 1);
+      //rockets.splice(i, 1);
+      collisions.forEach((c) => c.collideWith(rocket));
       continue;
     }
 

@@ -1,5 +1,5 @@
 class Planet extends Drawable {
-  constructor({position, radius, colour}) {
+  constructor({position, size, colour}) {
     super();
     if (position) {
       this.position = position;
@@ -10,14 +10,18 @@ class Planet extends Drawable {
       );
     }
 
-    this.radius = radius || random(15, 25);
+    this.size = size || random(15, 25);
     this.colour = colour || randomColour();
   }
 
   draw() {
     noStroke();
     fill(this.colour);
-    ellipse(this.position.x, this.position.y, this.radius * 2);
+    ellipse(this.position.x, this.position.y, this.size * 2);
+  }
+
+  collideWith(collision) {
+    this.size = this.size * 0.5;
   }
 
   containsPoint(point) {
