@@ -1,5 +1,5 @@
 let nPlanets = 40;
-let maxRockets = 10;
+let maxRockets = 1;
 
 let minx;
 let maxx;
