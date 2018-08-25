@@ -97,8 +97,8 @@ class Rocket extends Drawable {
     stroke(50);
     strokeWeight(1);
 
-    stroke(50);
-    strokeWeight(1);
+    stroke(this.colour);
+    strokeWeight(this.size / 10);
     let pp = this.initialPosition;
     this.flightPath.forEach((p) => {
       line(
