@@ -58,6 +58,14 @@ function windowResized() {
   maxm =  (width /2);
   miny = -(height/2);
   maxy =  (height/2);
+
+  let beforeLength = planets.length;
+  planets = planets.filter((p) => !p.isOffCanvas());
+  let afterLength = planets.length;
+  let newPlanets = beforeLength - afterLength;
+  while (newPlanets--) {
+    planets.push(new Planet());
+  }
 }
 
 function mousePressed() {
