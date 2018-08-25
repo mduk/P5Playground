@@ -3,7 +3,7 @@ class Rocket extends Drawable {
                acceleration, target, maxspeed, maxforce}) {
     super();
 
-    this.size            = size            || random(10, 50);
+    this.size            = size            || random(10, 15);
     this.colour          = colour          || randomColour();
     this.velocity        = velocity        || createVector(0,0);
     this.position        = position        || randomPosition();
@@ -12,6 +12,7 @@ class Rocket extends Drawable {
     this.target          = target          || false;
     this.maxspeed        = maxspeed        || 5;
     this.maxforce        = maxforce        || 0.05;
+    this.maxsize         = 50;
 
     this.initialPosition = this.position.copy();
 
@@ -77,6 +78,18 @@ class Rocket extends Drawable {
     let rocket = this;
     return objects.filter((o) => {
       return ((rocket.position.dist(o.position) - o.size) <= 0) ;
+    }).map((o) => {
+      if (rocket.size == rocket.maxsize) {
+        return o;
+      }
+
+      rocket.size += (o.size / 2);
+
+      if (rocket.size > rocket.maxsize) {
+        rocket.size = rocket.maxsize;
+      }
+
+      return o;
     });
   }
 
