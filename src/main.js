@@ -1,5 +1,6 @@
 let nPlanets = 40;
 let maxRockets = 1;
+let gutterpx = 150;
 
 let minx;
 let maxx;
@@ -39,10 +40,10 @@ function spawnRocket() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  minx = -(width /2);
-  maxm =  (width /2);
-  miny = -(height/2);
-  maxy =  (height/2);
+  minx = -(width /2) - gutterpx;
+  maxm =  (width /2) + gutterpx;
+  miny = -(height/2) - gutterpx;
+  maxy =  (height/2) + gutterpx;
 
   let iPlanets = nPlanets;
   while (iPlanets--) {
@@ -54,10 +55,10 @@ function setup() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-  minx = -(width /2);
-  maxm =  (width /2);
-  miny = -(height/2);
-  maxy =  (height/2);
+  minx = -(width /2) - gutterpx;
+  maxm =  (width /2) + gutterpx;
+  miny = -(height/2) - gutterpx;
+  maxy =  (height/2) + gutterpx;
 
   let beforeLength = planets.length;
   planets = planets.filter((p) => !p.isOffCanvas());
