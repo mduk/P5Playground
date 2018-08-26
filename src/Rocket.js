@@ -74,39 +74,46 @@ class Rocket extends Drawable {
     this.acceleration.add(force);
   }
 
-  collidesWith(objects) {
-    let rocket = this;
-    return objects.filter((o) => {
-      return ((rocket.position.dist(o.position) - o.size) <= 0) ;
-    }).map((o) => {
-      if (rocket.size == rocket.maxsize) {
-        return o;
+  handleCollisionWithPlanet(planet) {
+    if (this.size < this.maxsize) {
+      this.size += (planet.size / 2);
+      if (this.size > this.maxsize) {
+        this.size = this.maxsize;
       }
+    }
 
-      rocket.size += (o.size / 2);
+    this.colour.levels[0] += planet.colour.levels[0];
+    this.colour.levels[1] += planet.colour.levels[1];
+    this.colour.levels[2] += planet.colour.levels[2];
 
-      if (rocket.size > rocket.maxsize) {
-        rocket.size = rocket.maxsize;
-      }
+    this.colour.levels[0] /= 2;
+    this.colour.levels[1] /= 2;
+    this.colour.levels[2] /= 2;
 
-      return o;
-    });
   }
 
   draw() {
     stroke(50);
     strokeWeight(1);
 
-    stroke(this.colour);
-    strokeWeight(this.size / 10);
-    let pp = this.initialPosition;
-    this.flightPath.forEach((p) => {
-      line(
-        pp.x, pp.y,
-        p.x, p.y
-      );
-      pp = p;
-    });
+    if (false) {
+      stroke(this.colour);
+      strokeWeight(this.size / 10);
+      let pp = this.initialPosition;
+      this.flightPath.forEach((p) => {
+        line(
+          pp.x, pp.y,
+          p.x, p.y
+        );
+        pp = p;
+      });
+    }
+
+    if (this.target) {
+      let c = new Crosshair({ colour: this.colour });
+      c.position = this.target;
+      c.draw();
+    }
 
     noStroke();
     fill(this.colour);
