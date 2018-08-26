@@ -30,7 +30,6 @@ function spawnRocket() {
     setTimeout(spawnRocket, 1000)
   }
   else {
-    spawnRockets();
     let iPlanets = nPlanets;
     while (iPlanets--) {
       planets.push(new Planet({}));
