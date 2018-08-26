@@ -12,7 +12,7 @@ class Rocket extends Drawable {
     this.target          = target          || false;
     this.maxspeed        = maxspeed        || 5;
     this.maxforce        = maxforce        || 0.05;
-    this.maxsize         = 50;
+    this.maxsize         = 100;
 
     this.initialPosition = this.position.copy();
 
