@@ -20,7 +20,7 @@ class Planet extends Drawable {
     ellipse(this.position.x, this.position.y, this.size * 2);
   }
 
-  collideWith(collision) {
+  handleCollisionWithRocket() {
     this.size = this.size * 0.5;
   }
 

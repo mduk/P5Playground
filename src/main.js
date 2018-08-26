@@ -105,22 +105,15 @@ function draw() {
   }
 
   planets = planets.filter((p) => p.size > 5);
+  planets.forEach((p) => p.collidesWith(rockets));
   planets.draw();
+
+  rockets = rockets.filter((r) => !r.isOffCanvas());
+  rockets.forEach((r) => r.collidesWith(planets));
 
   let i = rockets.length;
   while (i--) {
     let rocket = rockets[i];
-
-    if (rocket.isOffCanvas()) {
-      rockets.splice(i, 1);
-      continue;
-    }
-
-    let collisions = rocket.collidesWith(planets);
-    if (collisions.length > 0) {
-      //rockets.splice(i, 1);
-      collisions.forEach((c) => c.collideWith(rocket));
-    }
 
     rocket.update();
 

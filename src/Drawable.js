@@ -6,7 +6,24 @@ class Drawable {
         || (this.position.y > maxy);
   }
 
-  collideWith() {}
+  collidesWith(objects) {
+    return objects
+      .filter((o) => {
+        return ((this.position.dist(o.position) - o.size) <= 0) ;
+      })
+      .map((o) => {
+        const otype = o.constructor.name;
+        const handler = `handleCollisionWith${otype}`;
+        if (typeof this[handler] == 'function') {
+          this[handler](o);
+        }
+        else {
+          console.log(`No collision handler: ${this.constructor.name}.${handler}`);
+        }
+        return o;
+      });
+  }
+
   update() {}
   draw() {}
 }
