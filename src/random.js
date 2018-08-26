@@ -1,8 +1,10 @@
 function randomColour() {
+  const step = 50;
+  const steps = 5;
   return color(
-    random(255),
-    random(255),
-    random(255)
+    int(random(steps)) * step,
+    int(random(steps)) * step,
+    int(random(steps)) * step
   );
 }
 
