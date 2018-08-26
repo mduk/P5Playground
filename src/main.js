@@ -120,7 +120,6 @@ function draw() {
     if (collisions.length > 0) {
       //rockets.splice(i, 1);
       collisions.forEach((c) => c.collideWith(rocket));
-      continue;
     }
 
     rocket.update();
