@@ -22,9 +22,9 @@ class Rocket extends Drawable {
   }
 
   update() {
-    const selectedPlanet = this.selectClosestColour(planets);
-    if (selectedPlanet) {
-      this.steerToward(selectedPlanet);
+    this.target = this.selectClosestColour(planets);
+    if (this.target) {
+      this.steerToward(this.target);
     }
 
     this.velocity.add(this.acceleration);
