@@ -11,6 +11,10 @@ let planets = [];
 let rockets = [];
 let launchLine = false;
 
+const debug = {
+  drawDistanceLines: true
+};
+
 p5.Color.prototype.asVector = function() {
   return createVector(
     this.levels[0],

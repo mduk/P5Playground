@@ -44,12 +44,14 @@ class Rocket extends Drawable {
 
     console.log(targets.length);
     targets.forEach((t) => {
-      const tdist = this.position.dist(t.position);
+      const tdist = t.position.dist(this.position);
 
-        strokeWeight(map(tdist, 0, width/2, 10, 0));
-        stroke(55);
-        line(this.position.x, this.position.y,
-                t.position.x,    t.position.y);
+        if (debug.drawDistanceLines) {
+          strokeWeight(map(tdist, 0, width/2, 10, 0));
+          stroke(55);
+          line(this.position.x, this.position.y,
+                  t.position.x,    t.position.y);
+        }
 
       if (tdist < distance) {
 
@@ -115,12 +117,15 @@ class Rocket extends Drawable {
       });
     }
 
+    // Draw the Crosshair
     if (this.target) {
       let c = new Crosshair({ colour: this.colour });
       c.position = this.target;
       c.draw();
     }
 
+
+    // Draw the Rocket
     noStroke();
     fill(this.colour);
     translate(this.position.x, this.position.y);
