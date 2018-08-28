@@ -22,7 +22,7 @@ class Rocket extends Drawable {
   }
 
   update() {
-    this.target = this.selectClosestColour(planets);
+    this.target = this.selectNearest(planets);
     if (this.target) {
       this.steerToward(this.target);
     }
@@ -34,29 +34,30 @@ class Rocket extends Drawable {
     this.flightPath.push(this.position.copy());
   }
 
-  selectClosestColour(targets) {
+  selectNearest(targets) {
     if (targets.length == 0) {
-      return;
+      return false;
     }
 
     let nearest = targets[0].position;
-    let distance = targets[0].colour.asVector().dist(this.colour.asVector());
-    targets.forEach((t) => {
-      if (this.colour.asVector().dist(t.colour.asVector()) < distance) {
-        nearest = t.position;
-      }
-    });
-    return nearest;
-  }
-
-  selectNearest(targets) {
-    let nearest = targets[0].position;
     let distance = targets[0].position.dist(this.position);
+
+    console.log(targets.length);
     targets.forEach((t) => {
-      if (this.position.dist(t.position) < distance) {
+      const tdist = this.position.dist(t.position);
+
+        strokeWeight(map(tdist, 0, width/2, 10, 0));
+        stroke(55);
+        line(this.position.x, this.position.y,
+                t.position.x,    t.position.y);
+
+      if (tdist < distance) {
+
         nearest = t.position;
+        distance = tdist;
       }
     });
+
     return nearest;
   }
 
@@ -81,6 +82,11 @@ class Rocket extends Drawable {
         this.size = this.maxsize;
       }
     }
+
+    this.target = this.selectNearest(
+      planets.filter((p) => p !== planet)
+    );
+
 
     this.colour.levels[0] += planet.colour.levels[0];
     this.colour.levels[1] += planet.colour.levels[1];
@@ -124,6 +130,8 @@ class Rocket extends Drawable {
        (this.size / 3), this.size,
       -(this.size / 3), this.size
     );
+
+    text(`Planets: ${planets.length}`, 20, 20);
   }
 
 }
