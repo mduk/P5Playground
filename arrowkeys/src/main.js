@@ -10,6 +10,8 @@ class Scene {
     this.guide_colour = '#AAAAAA';
     this.guide_weight = 1;
 
+    this.objects = [];
+
     createCanvas(this.width, this.height);
     this.updateBounds();
   }
@@ -26,6 +28,20 @@ class Scene {
     this.maxy =  (this.height / 2) + this.gutter_px;
   }
 
+  addObject(object) {
+    this.objects.push(object);
+  }
+
+  updateObjects() {
+    this.objects.forEach((o) => {
+      if (!(object instanceof Drawable)) {
+        console.log("Object is not drawable!", object);
+        return;
+      }
+      object.update(this);
+    });
+  }
+
   drawGuides() {
     stroke(this.guide_colour);
     strokeWeight(this.guide_weight);
@@ -33,14 +49,29 @@ class Scene {
     line(0, -(this.height/2), 0, (this.height/2));
   }
 
+  drawObjects() {
+    this.objects.forEach((o) => {
+      if (!(object instanceof Drawable)) {
+        console.log("Object is not drawable!", object);
+        return;
+      }
+      object.draw();
+    });
+  }
+
   draw() {
     background(this.background);
 
     translate(this.width/2, this.height/2);
 
+    this.updateObjects();
+
     if (this.draw_guides) {
       this.drawGuides();
     }
+
+    this.drawObjects();
+
   }
 }
 
