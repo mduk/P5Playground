@@ -16,7 +16,10 @@ class Scene {
     this.updateBounds();
   }
 
-  resize() {
+  resize(width, height) {
+    this.width = width;
+    this.height = height;
+
     resizeCanvas(this.width, this.height);
     this.updateBounds();
   }
@@ -77,5 +80,5 @@ class Scene {
 
 let scene;
 function setup()         { scene = new Scene(); }
-function windowResized() { scene.resize(); }
+function windowResized() { scene.resize(windowWidth, windowHeight); }
 function draw()          { scene.draw(); }
