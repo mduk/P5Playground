@@ -21,8 +21,7 @@ function setup() {
     scene.addObject(new Rocket({
       size: random(10, 30),
       velocity: createVector(random(10,20), 0),
-      position: createVector(0, random(0, windowWidth/2)),
-      mass: 1
+      position: createVector(0, random(0, windowWidth/2))
     }));
   }
 
