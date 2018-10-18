@@ -82,6 +82,11 @@ function mouseWheel(e) {
 }
 
 function mousePressed() {
+    scene.addObject(new Rocket({
+      size: random(10, 30),
+      velocity: createVector(random(10,20), 0),
+      position: mouse_position
+    }));
 }
 
 function mouseReleased() {
