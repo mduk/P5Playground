@@ -1,20 +1,31 @@
 let scene;
 let mouse_position;
 let star;
+let nPlanets = 3;
+let last_key;
 
 function setup() {
   scene = new Scene();
 
   star = new Rocket({
-    size: 500,
+    size: 70,
+    mass: 1000,
+    colour: '#ffff00',
     position: createVector(0,0)
   });
 
   scene.addFixedObject(star);
 
-  for (let i = 0; i < 5; i++) {
-    scene.addObject(new Rocket({}));
+  for (let i = 0; i < nPlanets; i++) {
+    scene.addObject(new Rocket({
+      size: random(10, 30),
+      velocity: createVector(random(10,20), 0),
+      position: createVector(0, random(0, windowWidth/2)),
+      mass: 1
+    }));
   }
+
+  background(0);
 }
 
 function windowResized() {
@@ -27,20 +38,30 @@ function draw() {
     mouseY - (height/2)
   );
 
-  if (key != undefined) {
-    switch (key) {
-      case ' ':
-        scene.objects.forEach((o) => {
-          o.attractedTo({position: mouse_position, mass: 50});
-        });
-        break;
+  if (key != last_key) {
+    if (key != undefined) {
+      switch (key) {
+        case ' ':
+          scene.reset_background = !scene.reset_background;
+          break;
 
-      default:
-        scene.objects.forEach((o) => {
-          o.attractedTo({position: mouse_position, mass: (key * 10)});
-        });
-        break
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+          nPlanets = key;
+          setup();
+          break
+      }
     }
+
+    last_key = key;
   }
 
   scene.draw();
@@ -58,7 +79,8 @@ function mouseWheel(e) {
 }
 
 function mousePressed() {
-  scene.addObject(new Rocket({
-    position: mouse_position
-  }));
+}
+
+function mouseReleased() {
+
 }

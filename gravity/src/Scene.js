@@ -1,17 +1,20 @@
 class Scene {
   constructor() {
     this.background = '#000000';
+    this.reset_background = true;
 
     this.width = windowWidth;
     this.height = windowHeight;
     this.gutter_px = 100;
 
-    this.draw_guides = true;
+    this.draw_guides = false;
     this.guide_colour = '#AAAAAA';
     this.guide_weight = 1;
 
     this.objects = [];
-    this.fixedObjects = [];
+    this.fixed_objects = [];
+
+    this.planets_interact = true;
 
     createCanvas(this.width, this.height);
     this.updateBounds();
@@ -45,35 +48,29 @@ class Scene {
       return;
     }
 
-    this.fixedObjects.push(object);
+    this.fixed_objects.push(object);
   }
 
   updateObjects() {
-    this.fixedObjects.forEach((fo) => {
+
+    // Fixed Objects attract Variable Objects
+    this.fixed_objects.forEach((fo) => {
       this.objects.forEach((vo) => {
         vo.attractedTo(fo);
-
-      stroke(150);
-      strokeWeight(1);
-      line(vo.position.x, vo.position.y,
-           fo.position.x, fo.position.y);
       });
     });
 
+    // Variable Objects attract Variable Objects
     this.objects.forEach((attractor) => {
       this.objects.forEach((attractee) => {
         attractee.attractedTo(attractor);
       });
     });
 
+    // Update all Objects
+    this.objects.forEach(o => o.update(this));
+    this.fixed_objects.forEach(o => o.update(this));
 
-    this.objects.forEach((object) => {
-      if (!(object instanceof Drawable)) {
-        console.log("Object is not drawable!", object);
-        return;
-      }
-      object.update(this);
-    });
   }
 
   drawGuides() {
@@ -84,12 +81,14 @@ class Scene {
   }
 
   drawObjects() {
-    this.fixedObjects.forEach(o => o.draw());
+    this.fixed_objects.forEach(o => o.draw());
     this.objects.forEach(o => o.draw());
   }
 
   draw() {
-    background(this.background);
+    if (this.reset_background) {
+      background(this.background);
+    }
 
     const font_size = 16;
 
