@@ -3,6 +3,7 @@ let mouse_position;
 let star;
 let nPlanets = 3;
 let last_key;
+let draw_trails = false;
 
 function setup() {
   scene = new Scene();
@@ -33,6 +34,8 @@ function windowResized() {
 }
 
 function draw() {
+  scene.reset_background = !draw_trails;
+
   mouse_position = createVector(
     mouseX - (width/2),
     mouseY - (height/2)
@@ -42,7 +45,7 @@ function draw() {
     if (key != undefined) {
       switch (key) {
         case ' ':
-          scene.reset_background = !scene.reset_background;
+          draw_trails = !draw_trails;
           break;
 
         case '0':
@@ -82,5 +85,4 @@ function mousePressed() {
 }
 
 function mouseReleased() {
-
 }
