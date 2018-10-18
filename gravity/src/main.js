@@ -1,9 +1,26 @@
 let scene;
-let mouse_position;
+let mousePosition;
 let star;
 let nPlanets = 3;
 let last_key;
 let draw_trails = false;
+
+class Arrow extends Drawable {
+  constructor(v) {
+    super();
+    this.v = v;
+    this.mass = 0;
+  }
+
+  update() {
+  }
+
+  draw() {
+    stroke(255);
+    strokeWeight(2);
+    line(this.position.x, this.position.y, this.v.x, this.v.y);
+  }
+}
 
 function setup() {
   scene = new Scene();
@@ -33,13 +50,54 @@ function windowResized() {
   background(0);
 }
 
+let lastMouseIsPressed = false;
+let dragStart;
+let dragStop;
+let dragVector;
+let dragVectorInverse;
+let dragArrow;
+
 function draw() {
   scene.reset_background = !draw_trails;
 
-  mouse_position = createVector(
+  mousePosition = createVector(
     mouseX - (width/2),
     mouseY - (height/2)
   );
+
+  scene.draw();
+
+  if (mouseIsPressed == true && lastMouseIsPressed == false ) {
+    lastMouseIsPressed = mouseIsPressed;
+    dragStart = mousePosition;
+
+    dragArrow = new Arrow(dragStart);
+    dragArrow.position = dragStart;
+    scene.addFixedObject(dragArrow);
+
+    dragVector = p5.Vector.sub(dragStart, dragStop);
+  }
+  else if (mouseIsPressed == true && lastMouseIsPressed == true) {
+    dragStop = mousePosition;
+    dragArrow.v = mousePosition;
+
+    dragVector = p5.Vector.sub(dragStop, dragStart);
+    dragVectorInverse = p5.Vector.sub(dragStart, dragStop);
+
+  }
+  else if (mouseIsPressed == false && lastMouseIsPressed == true) {
+    lastMouseIsPressed = mouseIsPressed;
+
+    scene.fixed_objects.splice(scene.fixed_objects.indexOf(dragArrow));
+
+    dragArrow = undefined;
+
+    scene.addObject(new Rocket({
+      size: random(10, 30),
+      velocity: dragVector.mult(0.1),
+      position: mousePosition
+    }));
+  }
 
   if (key != last_key) {
     if (key != undefined) {
@@ -66,8 +124,6 @@ function draw() {
 
     last_key = key;
   }
-
-  scene.draw();
 }
 
 function keyPressed() {
