@@ -30,6 +30,7 @@ function setup() {
 
 function windowResized() {
   scene.resize(windowWidth, windowHeight);
+  background(0);
 }
 
 function draw() {
