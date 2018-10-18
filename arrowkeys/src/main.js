@@ -1,84 +1,59 @@
-class Scene {
-  constructor() {
-    this.background = '#000000';
+let scene;
+let arrow;
+let rocket;
 
-    this.width = windowWidth;
-    this.height = windowHeight;
-    this.gutter_px = 100;
-
-    this.draw_guides = true;
-    this.guide_colour = '#AAAAAA';
-    this.guide_weight = 1;
-
-    this.objects = [];
-
-    createCanvas(this.width, this.height);
-    this.updateBounds();
-  }
-
-  resize(width, height) {
-    this.width = width;
-    this.height = height;
-
-    resizeCanvas(this.width, this.height);
-    this.updateBounds();
-  }
-
-  updateBounds() {
-    this.minx = -( this.width / 2) - this.gutter_px;
-    this.maxx =  ( this.width / 2) + this.gutter_px;
-    this.miny = -(this.height / 2) - this.gutter_px;
-    this.maxy =  (this.height / 2) + this.gutter_px;
-  }
-
-  addObject(object) {
-    this.objects.push(object);
-  }
-
-  updateObjects() {
-    this.objects.forEach((o) => {
-      if (!(object instanceof Drawable)) {
-        console.log("Object is not drawable!", object);
-        return;
-      }
-      object.update(this);
-    });
-  }
-
-  drawGuides() {
-    stroke(this.guide_colour);
-    strokeWeight(this.guide_weight);
-    line(-(this.width/2), 0, (this.width/2), 0);
-    line(0, -(this.height/2), 0, (this.height/2));
-  }
-
-  drawObjects() {
-    this.objects.forEach((o) => {
-      if (!(object instanceof Drawable)) {
-        console.log("Object is not drawable!", object);
-        return;
-      }
-      object.draw();
-    });
+class Arrow extends Drawable {
+  constructor(v) {
+    super();
+    this.vector = v;
   }
 
   draw() {
-    background(this.background);
-
-    translate(this.width/2, this.height/2);
-
-    this.updateObjects();
-
-    if (this.draw_guides) {
-      this.drawGuides();
-    }
-
-    this.drawObjects();
-
+    stroke(255);
+    strokeWeight(5);
+    line(0, 0, this.vector.x, this.vector.y);
+    ellipse(this.vector.x, this.vector.y, 10);
   }
 }
 
-let scene;
-function setup()         { scene = new Scene(); }
-function windowResized() { scene.resize(windowWidth, windowHeight); }
-function draw()          { scene.draw(); }
+
+
+function setup() {
+  scene = new Scene();
+
+  arrow = new Arrow(createVector(0, 0));
+  scene.addObject(arrow);
+
+  rocket = new Rocket({});
+  scene.addObject(rocket);
+}
+
+function windowResized() {
+  scene.resize(windowWidth, windowHeight);
+}
+
+function draw() {
+//  keyPressed();
+  scene.draw();
+}
+
+function keyPressed() {
+  switch (true) {
+    case keyIsDown(   UP_ARROW): rocket.applyForce(createVector(   0, -1)); break;
+    case keyIsDown(RIGHT_ARROW): rocket.applyForce(createVector( 1,    0)); break;
+    case keyIsDown( DOWN_ARROW): rocket.applyForce(createVector(   0,  1)); break;
+    case keyIsDown( LEFT_ARROW): rocket.applyForce(createVector(-1,    0)); break;
+  }
+}
+
+function keyReleased() {
+  rocket.acceleration = createVector(0,0)
+  console.log("Acceleration", rocket.acceleration, "Velocity", rocket.velocity);
+}
+
+function mousePressed() {
+  console.log(createVector(
+    mouseX - (width/2),
+    mouseY - (height/2)
+  ));
+}
