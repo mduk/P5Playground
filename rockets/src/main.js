@@ -12,7 +12,7 @@ let rockets = [];
 let launchLine = false;
 
 const debug = {
-  drawDistanceLines: true
+  drawDistanceLines: false
 };
 
 p5.Color.prototype.asVector = function() {
