@@ -54,9 +54,9 @@ class Scene {
   updateObjects() {
 
     // Fixed Objects attract Variable Objects
-    this.fixed_objects.forEach((fo) => {
-      this.objects.forEach((vo) => {
-        vo.attractedTo(fo);
+    this.fixed_objects.forEach((attractor) => {
+      this.objects.forEach((attractee) => {
+        attractee.attractedTo(attractor);
       });
     });
 
