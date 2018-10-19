@@ -41,6 +41,17 @@ class Scene {
     }
 
     this.objects.push(object);
+    console.log("objects:", this.objects.length);
+  }
+
+  removeObject(object) {
+    if (object == undefined) {
+      return;
+    }
+
+    const i = this.objects.findIndex(o => o === object);
+    this.objects.splice(i, 1);
+    console.log("objects:", this.objects.length);
   }
 
   addFixedObject(object) {
@@ -49,6 +60,17 @@ class Scene {
     }
 
     this.fixed_objects.push(object);
+    console.log("fixed_objects:", this.fixed_objects.length);
+  }
+
+  removeFixedObject(object) {
+    if (object == undefined) {
+      return;
+    }
+
+    const i = this.fixed_objects.findIndex(o => o === object);
+    this.fixed_objects.splice(i, 1);
+    console.log("fixed_objects:", this.fixed_objects.length);
   }
 
   updateObjects() {
@@ -71,6 +93,29 @@ class Scene {
     this.objects.forEach(o => o.update(this));
     this.fixed_objects.forEach(o => o.update(this));
 
+    // Check for collisions
+    let collisions = [];
+
+    this.objects.forEach((a) => {
+      this.objects.forEach((b) => {
+        if (b === a) {
+          return;
+        }
+
+        const distance = dist(
+          a.position.x, a.position.y,
+          b.position.x, b.position.y
+        );
+
+        if (distance < (a.size + b.size)) {
+          collisions.push(a);
+          collisions.push(b);
+        }
+      });
+    });
+
+    collisions.forEach(o => this.removeObject(o));
+    collisions = [];
   }
 
   drawGuides() {

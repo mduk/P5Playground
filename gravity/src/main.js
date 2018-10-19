@@ -83,18 +83,16 @@ function draw() {
 
     dragVector = p5.Vector.sub(dragStop, dragStart);
     dragVectorInverse = p5.Vector.sub(dragStart, dragStop);
-
   }
   else if (mouseIsPressed == false && lastMouseIsPressed == true) {
     lastMouseIsPressed = mouseIsPressed;
 
-    scene.fixed_objects.splice(scene.fixed_objects.indexOf(dragArrow));
-
+    scene.removeFixedObject(dragArrow);
     dragArrow = undefined;
 
     scene.addObject(new Rocket({
       size: random(10, 30),
-      velocity: dragVector.mult(0.1),
+      velocity: dragVectorInverse.mult(0.05),
       position: mousePosition
     }));
   }
@@ -137,13 +135,3 @@ function mouseWheel(e) {
   star.size += e.delta;
 }
 
-function mousePressed() {
-    scene.addObject(new Rocket({
-      size: random(10, 30),
-      velocity: createVector(random(10,20), 0),
-      position: mouse_position
-    }));
-}
-
-function mouseReleased() {
-}
